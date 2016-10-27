@@ -1,0 +1,23 @@
+{
+  "name": "Pay NetSuite Invoices with Stripe`",
+  "description": "This app does one little thing, and does it well.",
+  "keywords": [
+    "netsuite",
+    "stripe",
+    "invoices"
+  ],
+  "website": "http://suitesync.io/",
+  "repository": "https://github.com/iloveitaly/netsuite_invoice_payment_with_stripe",
+  "success_url": "/",
+  "env": {
+    "NETSUITE_ACCOUNT": {
+      "description": "NetSuite Account Number"
+    },
+    "NETSUITE_EMAIL": {
+      "description": "Email associated with the web services enabled account"
+    },
+    "NETSUITE_PASSWORD": {},
+    "STRIPE_API": {},
+    "STRIPE_PUBLIC_KEY": {}
+  },
+}

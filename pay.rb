@@ -40,8 +40,7 @@ get '/:invoice_id' do
   ns_invoice = NetSuite::Utilities.get_record(NetSuite::Records::Invoice, params[:invoice_id])
 
   if ns_invoice.status == "Paid In Full"
-    erb :already_paid, locals: { invoice_number: ns_invoice.tran_id }
-    return
+    return erb :already_paid, locals: { invoice_number: ns_invoice.tran_id }
   end
 
   ns_customer = NetSuite::Utilities.get_record(NetSuite::Records::Customer, ns_invoice.entity.internal_id)

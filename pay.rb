@@ -32,6 +32,10 @@ NetSuite.configure do
   })
 end
 
+get '/' do
+  redirect "https://github.com/iloveitaly/netsuite_invoice_payment_with_stripe"
+end
+
 get '/:invoice_id' do
   ns_invoice = NetSuite::Utilities.get_record(NetSuite::Records::Invoice, params[:invoice_id])
 
@@ -90,7 +94,7 @@ post '/pay' do
         # this metadata field instructs SuiteSync to create a CustomerPayment and apply it to the associated invoice
         netsuite_invoice_id: params[:invoice_id]
 
-        # more metadata fields can be added to pass custom data over to the 
+        # more metadata fields can be added to pass custom data over to the
       }
     )
   rescue Stripe::CardError => e

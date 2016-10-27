@@ -3,7 +3,7 @@
 
 # Allow Customers to Pay NetSuite Invoices with Stripe
 
-![Example](http://g.recordit.co/gzY1JCsE5w.gif)
+[Demo Video](http://recordit.co/gzY1JCsE5w)
 
 ## Help?
 

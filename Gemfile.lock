@@ -80,12 +80,12 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
-  netsuite
+  netsuite (~> 0.7.3)
   pry
   pry-nav
-  sinatra
-  sinatra-contrib
-  stripe
+  sinatra (~> 1.4.7)
+  sinatra-contrib (~> 1.4.7)
+  stripe (~> 1.56.0)
 
 RUBY VERSION
    ruby 2.3.0p0

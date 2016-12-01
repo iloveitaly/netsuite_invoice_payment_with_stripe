@@ -24,11 +24,13 @@ GEM
     mini_portile2 (2.1.0)
     multi_json (1.12.1)
     netrc (0.11.0)
-    netsuite (0.7.3)
+    netsuite (0.7.5)
       savon (>= 2.3.0)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     nori (2.6.0)
+    plaid (2.2.0)
+      multi_json (~> 1.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -80,7 +82,8 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
-  netsuite (~> 0.7.3)
+  netsuite (~> 0.7.5)
+  plaid (~> 2.2.0)
   pry
   pry-nav
   sinatra (~> 1.4.7)

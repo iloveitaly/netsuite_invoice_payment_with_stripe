@@ -10,6 +10,8 @@
       <form action="/pay" method="POST">
         <input type="hidden" name="invoice_id" value="<%= params[:invoice_id] %>" />
         <input type="hidden" name="invoice_total" value="<%= invoice_total %>" />
+        <input type="hidden" name="invoice_number" value="<%= invoice_number %>" />
+        <input type="hidden" name="customer_email" value="<%= customer_email %>" />
 
         <h3 style="margin-bottom: 15px" class='text-center'>Pay Invoice #<%= invoice_number %></h3>
 

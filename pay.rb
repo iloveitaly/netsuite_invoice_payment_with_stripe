@@ -74,6 +74,8 @@ end
 post '/pay' do
   token = params[:stripeToken]
   invoice_total = params[:invoice_total]
+  invoice_number = params[:invoice_number]
+  customer_email = params[:customer_email]
 
   # the token is used to create a one-time charge
 
@@ -82,12 +84,14 @@ post '/pay' do
 
   begin
     charge = Stripe::Charge.create(
-      :amount => invoice_total,
-      :currency => 'usd',
-      :source => token,
+      amount: invoice_total,
+      currency: 'usd',
+      source: token,
 
       # this description will be added to the memo field of the NetSuite customer payment
-      :description => "Online NetSuite Invoice Payment",
+      description: "Online NetSuite Invoice Payment #{invoice_number}",
+
+      receipt_email: customer_email,
 
       metadata: {
         # this metadata field instructs SuiteSync to create a CustomerPayment and apply it to the associated invoice

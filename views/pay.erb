@@ -1,14 +1,45 @@
 <%= erb :head %>
 
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script>
+$(document).ready(function() {
+  var linkHandler = Plaid.create({
+    env: 'tartan',
+    clientName: 'Stripe ACH Payment Test',
+    key: "<%= ENV['PLAID_PUBLIC_KEY'] %>",
+    product: 'auth',
+    selectAccount: true,
+
+    onSuccess: function(public_token, metadata) {
+      $('#js-plaid-account-id').val(metadata.account_id)
+      $('#js-plaid-public-token').val(metadata.public_token)
+      $('#js-payment-form').submit();
+    },
+
+    onExit: function(err, metadata) {
+
+    }
+  });
+
+  $('#js-stripe-ach').click(function() {
+    linkHandler.open();
+  })
+})
+</script>
+
+
 <div class='container'>
   <div class='row'>
     <div class='col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2 main-body'>
 
-      <form action="/pay" method="POST">
+      <form id="js-payment-form" action="/pay" method="POST">
         <input type="hidden" name="invoice_id" value="<%= params[:invoice_id] %>" />
         <input type="hidden" name="invoice_total" value="<%= invoice_total %>" />
         <input type="hidden" name="invoice_number" value="<%= invoice_number %>" />
         <input type="hidden" name="customer_email" value="<%= customer_email %>" />
+
+        <input type="hidden" name="plaid_account_id" id="js-plaid-account-id" />
+        <input type="hidden" name="plaid_account_token" id="js-plaid-public-token" />
 
         <h3 style="margin-bottom: 15px" class='text-center'>Pay Invoice #<%= invoice_number %></h3>
 
@@ -30,8 +61,17 @@
             data-email="<%= customer_email %>"
             data-locale="auto">
           </script>
+
+          <button type="button" id="js-stripe-ach" class="stripe-button-el" style="margin-left: 15px">
+            <span>Pay with Bank Transfer</span>
+          </button>
         </div>
       </form>
+    </div>
+  </div>
 
+  <div class='row text-muted text-center' style="margin-top: 20px;">
+    <p><strong>Need help?</strong></p>
+    Call (415) 523-0948 or email <a href="mailto:company@example.com">company@example.com</a>
   </div>
 </div>

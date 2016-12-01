@@ -36,6 +36,29 @@ get '/' do
   redirect "https://github.com/iloveitaly/netsuite_invoice_payment_with_stripe"
 end
 
+get '/random' do
+  open_invoices = NetSuite::Utilities.backoff { NetSuite::Records::Invoice.search(
+    basic: [
+      {
+        field: 'type',
+        operator: 'anyOf',
+        value: %w(_invoice),
+      },
+      {
+        field: 'status',
+        operator: 'anyOf',
+        value: %w(_invoiceOpen)
+      }
+    ],
+    preferences: {
+      body_fields_only: true,
+      page_size: 5
+    }
+  ) }
+
+  redirect "/" + open_invoices.results.sample.internal_id
+end
+
 get '/:invoice_id' do
   ns_invoice = NetSuite::Utilities.get_record(NetSuite::Records::Invoice, params[:invoice_id])
 

@@ -118,7 +118,7 @@ post '/pay' do
   plaid_account_id = params[:plaid_account_id]
   plaid_account_token = params[:plaid_account_token]
 
-  if !plaid_account_id.nil?
+  if !plaid_account_id.nil? && !plaid_account_id.empty?
     plaid_user = Plaid::User.exchange_token(
       plaid_account_token,
       plaid_account_id,

@@ -13,7 +13,9 @@ require 'pry'
 Plaid.config do |p|
   p.client_id = ENV['PLAID_CLIENT_ID']
   p.secret = ENV['PLAID_SECRET']
-  p.env = (development?) ? :tartan : :production
+
+  # :tartan is plaid's testing environment
+  p.env = :tartan
 end
 
 Stripe.api_key = ENV['STRIPE_KEY']

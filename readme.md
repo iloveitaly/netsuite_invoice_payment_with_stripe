@@ -3,11 +3,15 @@
 
 # Allow Customers to Pay NetSuite Invoices with Stripe
 
-[Demo Video](http://recordit.co/gzY1JCsE5w)
+This simple sinatra application enables customers to pay off their open NetSuite invoices using ACH or credit card.
+
+Here's a [demo video](http://recordit.co/gzY1JCsE5w) along with [written documentation](https://dashboard.suitesync.io/docs/b2b-payments) about this feature.
+
+There is more robust version of this application that is hosted and managed as part of the SuiteSync product. This open source implementation is designed for organizations that would like to customize their collection process beyond what the hosted version allows.
 
 ## Help?
 
-[Join the OpenSuite chat room](http://opensuite-slackin.herokuapp.com/)
+[Join the OpenSuite chat room](http://opensuite-slackin.herokuapp.com/) or contact us at support@suitesync.io.
 
 ## Getting Started
 

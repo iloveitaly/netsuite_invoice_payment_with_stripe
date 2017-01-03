@@ -62,7 +62,7 @@ get '/random' do
     ],
     preferences: {
       body_fields_only: true,
-      page_size: 5
+      page_size: 20
     }
   ) }
 
@@ -87,7 +87,7 @@ get '/:invoice_id' do
   begin
     stripe_customer = Stripe::Customer.retrieve(ns_customer.external_id)
     stripe_customer_id = stripe_customer.id
-  rescue
+  rescue Stripe::InvalidRequestError => e
     stripe_customer_id = nil
   end
 
@@ -109,7 +109,9 @@ post '/pay' do
   invoice_total = params[:invoice_total]
   invoice_number = params[:invoice_number]
   invoice_id = params[:invoice_id]
+
   customer_email = params[:customer_email]
+  stripe_customer_id = params[:stripe_customer_id]
 
   # the token, either a card or bank account token, is used to create a one-time charge
 
@@ -139,11 +141,27 @@ post '/pay' do
   # instead of creating a one-time payment, you can add the card as a payment
   # source to the associated customer for easy reuse in the future
 
+  if !stripe_customer_id.nil? && !stripe_customer_id.empty?
+    stripe_customer = Stripe::Customer.retrieve(stripe_customer_id)
+
+    stripe_card = stripe_customer.sources.create(card: stripe_token)
+    stripe_token = stripe_card.id
+
+    if stripe_customer.default_source.nil?
+      stripe_customer.default_source = stripe_token
+      stripe_customer.save
+    end
+  end
+
   begin
     charge = Stripe::Charge.create({
       amount: invoice_total,
+
+      # NOTE this is hard coded to USD, but the currency can be easily pulled from the invoice
       currency: 'usd',
+
       source: stripe_token,
+      customer: stripe_customer_id,
 
       # this description will be added to the memo field of the NetSuite customer payment
       description: "Online NetSuite Invoice Payment #{invoice_number}",
@@ -154,7 +172,8 @@ post '/pay' do
         # this metadata field instructs SuiteSync to create a CustomerPayment and apply it to the associated invoice
         netsuite_invoice_id: invoice_id
 
-        # more metadata fields can be added to pass custom data over to the integration
+        # more metadata fields can be added to pass custom data over to NetSuite
+        # https://dashboard.suitesync.io/docs/field-customization
       }
     })
   rescue Stripe::CardError => e

@@ -36,6 +36,8 @@ $(document).ready(function() {
         <input type="hidden" name="invoice_id" value="<%= params[:invoice_id] %>" />
         <input type="hidden" name="invoice_total" value="<%= invoice_total %>" />
         <input type="hidden" name="invoice_number" value="<%= invoice_number %>" />
+
+        <input type="hidden" name="stripe_customer_id" value="<%= stripe_customer_id %>" />
         <input type="hidden" name="customer_email" value="<%= customer_email %>" />
 
         <input type="hidden" name="plaid_account_id" id="js-plaid-account-id" />

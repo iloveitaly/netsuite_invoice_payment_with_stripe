@@ -13,14 +13,37 @@ There is more robust version of this application that is hosted and managed as p
 
 [Join the OpenSuite chat room](http://opensuite-slackin.herokuapp.com/) or contact us at support@suitesync.io.
 
+## Development
+
+```
+copy .env-example .env
+# edit .env with NetSuite and Stripe credentials
+
+bundle
+bundle exec ruby pay.rb
+```
+
 ## Getting Started
 
 1. Deploy app to heroku
 2. [Find open invoice](https://system.na1.netsuite.com/app/accounting/transactions/transactionlist.nl?searchtype=Transaction&searchid=-2100&Transaction_TYPE=CustInvc
 )
-3. Copy internal ID of NetSuite Invoice
+3. Copy internal ID of NetSuite Invoice to the payment URL, or visit http://127.0.0.1:4567/random to pick a random invoice from your NetSuite account
 
 [SuiteSync](http://SuiteSync.io) can also host a more advanced version of this form for you.
+
+## Testing
+
+**Credit or Debit Card**
+Card number: 4242 42424 4242 4242
+CCV: 123
+Expiration 12/2020
+
+**ACH Payment**
+Bank to use: PNC
+Username: plaid_test
+Password: plaid_good
+Security question: tomato
 
 ## Description
 

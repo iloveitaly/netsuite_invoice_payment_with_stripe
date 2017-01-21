@@ -141,6 +141,8 @@ post '/pay' do
   # instead of creating a one-time payment, you can add the card as a payment
   # source to the associated customer for easy reuse in the future
 
+  payment_options = {}
+
   if !stripe_customer_id.nil? && !stripe_customer_id.empty?
     stripe_customer = Stripe::Customer.retrieve(stripe_customer_id)
 
@@ -151,17 +153,18 @@ post '/pay' do
       stripe_customer.default_source = stripe_token
       stripe_customer.save
     end
+
+    payment_options[:customer] = stripe_customer.id
   end
 
   begin
-    charge = Stripe::Charge.create({
+    charge = Stripe::Charge.create(payment_options.merge({
       amount: invoice_total,
 
       # NOTE this is hard coded to USD, but the currency can be easily pulled from the invoice
       currency: 'usd',
 
       source: stripe_token,
-      customer: stripe_customer_id,
 
       # this description will be added to the memo field of the NetSuite customer payment
       description: "Online NetSuite Invoice Payment #{invoice_number}",
@@ -175,7 +178,7 @@ post '/pay' do
         # more metadata fields can be added to pass custom data over to NetSuite
         # https://dashboard.suitesync.io/docs/field-customization
       }
-    })
+    }))
   rescue Stripe::CardError => e
     raise e
   end

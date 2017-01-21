@@ -46,7 +46,7 @@ get '/' do
 end
 
 # this is helpful for finding invoices in your sandbox to pay off
-get '/random' do
+get '/example' do
   open_invoices = NetSuite::Utilities.backoff { NetSuite::Records::Invoice.search(
     basic: [
       {

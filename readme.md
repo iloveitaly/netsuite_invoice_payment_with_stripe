@@ -28,7 +28,7 @@ bundle exec ruby pay.rb
 1. Deploy app to heroku
 2. [Find open invoice](https://system.na1.netsuite.com/app/accounting/transactions/transactionlist.nl?searchtype=Transaction&searchid=-2100&Transaction_TYPE=CustInvc
 )
-3. Copy internal ID of NetSuite Invoice to the payment URL, or visit http://127.0.0.1:4567/random to pick a random invoice from your NetSuite account
+3. Copy internal ID of NetSuite Invoice to the payment URL, or visit http://127.0.0.1:4567/example to pick a random invoice from your NetSuite account
 
 [SuiteSync](http://SuiteSync.io) can also host a more advanced version of this form for you.
 

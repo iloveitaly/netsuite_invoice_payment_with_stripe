@@ -46,6 +46,7 @@ $(document).ready(function() {
         <h3 style="margin-bottom: 15px" class='text-center'>Pay Invoice #<%= invoice_number %></h3>
 
         <div style="margin-left: 100px; margin-top: 25px; margin-bottom: 25px">
+          <%# TODO you can pull any fields from the invoice (including line items!) and display them here %>
           <% if !invoice_due_date.nil? %>
             <p>Due Date: <b><%= invoice_due_date.strftime('%m/%d/%Y') %></b></p>
           <% end %>
@@ -61,6 +62,7 @@ $(document).ready(function() {
             data-name="Invoice #<%= invoice_number %>"
             data-description=""
             data-email="<%= customer_email %>"
+            <%# add `data-billing-address="true"` to collect billing address %>
             data-locale="auto">
           </script>
 

@@ -34,16 +34,21 @@ bundle exec ruby pay.rb
 
 ## Testing
 
-**Credit or Debit Card**
-Card number: 4242 42424 4242 4242
-CCV: 123
-Expiration 12/2020
+**Credit or Debit Card**  
+Card number: 4242 42424 4242 4242  
+CCV: 123  
+Expiration 12/2020  
 
-**ACH Payment**
-Bank to use: PNC
-Username: plaid_test
-Password: plaid_good
-Security question: tomato
+**ACH Payment**  
+Bank to use: PNC  
+Username: plaid_test  
+Password: plaid_good  
+Security question: tomato  
+
+**Manual ACH Payment**  
+Routing: 110000000  
+Account: 000123456789  
+Verification: 32, 45
 
 ## Description
 
